@@ -22,7 +22,7 @@ bot.on('ready', () => {
 })
 
 bot.on('correctDay', (message) => { //event to execute when timer expires on the correct day
-  bot.channels.cache.get(testChannelID).send('It is Fat Fuck Friday.', {files: [Path.join(__dirname, 'itshim.jpg')]}) //C:\Users\James\fat-fuck-bot\itshim.jpg
+  bot.channels.cache.get(genChannelID).send('It is Fat Fuck Friday.', {files: [Path.join(__dirname, 'itshim.jpg')]}) //C:\Users\James\fat-fuck-bot\itshim.jpg
 })
 
 
