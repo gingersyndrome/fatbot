@@ -4,18 +4,19 @@
 const Discord = require('discord.js')
 const bot = new Discord.Client()
 const Path = require('path')
+var fs = require('fs');   
+
 
 /////////////////////////DO-NOT-CHANGE-VARIABLES//////////////////////////
 counterOne = 0 //first counter
-counterTwo = 0 //second counter
+counterTwo = 0 //second counter 
+var imageFileName = fs.readdirSync(Path.join(__dirname, 'imagesToPost'))
 
 //////////////////////CONFIG-VARIABLES//////////////////////
 //add one for botname and message for both counters
 const genChannelID = '651155522833350679' //set this, ID of channel that image will be posted to
 const targetDayIndex = 5 //set this, to the day the image should be posted on Monday = 1, Tuesday = 2, ect.
 const messageToSend = 'It is Fat Fuck Friday.' //set this, message to send when the timer expires
-let imageFileName = ['imageOne.jpg', 'imageTwo.jpg', 'imageThree.jpg', 'imageFour.jpg', 'imageFive.jpg',
-'imageSix.jpg', 'imageSeven', 'imageEight', 'imageNine', 'imageTen'] //set this, image to post when the timer expires
 const randMax = 43200000 //set this, maximum for posting timer in miliseconds, 86400000 miliseconds in 24 hours, set to 0 to post immediately when it is the correct day 
 const randMin = 0 //minimum for posting timer, probably no reason to set
 const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1800000 miliseconds in 0.5 hours
@@ -23,6 +24,7 @@ const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1
 ///////////////////////////////LISTENERS/////////////////////////////////
 bot.on('ready', () => {
   console.log('Bot is ready.')
+  console.log(imageFileName[3])
   posted  = true //set bool for if the image has been posted
   checkDay() //check the day and begin the recursive loop
 })
@@ -117,6 +119,12 @@ function getRandomInt(min, max) { //random number generator, the maximum is excl
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min)
 }
+
+function constructImageArray(){
+  let filetypes = ['.jpg', 'jpeg', '.gif', '.png', '.tif', '.tiff', '.bmp']
+
+}
+
 
 //////////////////////////////////////AUTHENTICATION///////////////////////
 bot.login(process.env.fatBotToken) //shh this is a secret password :)
