@@ -6,13 +6,12 @@ const bot = new Discord.Client()
 const Path = require('path')
 var fs = require('fs');   
 
-
 /////////////////////////DO-NOT-CHANGE-VARIABLES//////////////////////////
 counterOne = 0 //first counter
 counterTwo = 0 //second counter 
-var imageFileName = fs.readdirSync(Path.join(__dirname, 'imagesToPost'))
+var imageFileName = fs.readdirSync(Path.join(__dirname, 'imagesToPost')) //construct and array of all filenames in imagesToPost
 
-//////////////////////CONFIG-VARIABLES//////////////////////
+//////////////////////CONFIG-VARIABLES///////////////////////////////////
 //add one for botname and message for both counters
 const genChannelID = '651155522833350679' //set this, ID of channel that image will be posted to
 const targetDayIndex = 5 //set this, to the day the image should be posted on Monday = 1, Tuesday = 2, ect.
@@ -24,6 +23,8 @@ const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1
 ///////////////////////////////LISTENERS/////////////////////////////////
 bot.on('ready', () => {
   console.log('Bot is ready.')
+  console.log(imageFileName.length-1)
+  console.log(imageFileName[1])
   posted  = true //set bool for if the image has been posted
   checkDay() //check the day and begin the recursive loop
 })
@@ -118,12 +119,6 @@ function getRandomInt(min, max) { //random number generator, the maximum is excl
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min)
 }
-
-function constructImageArray(){
-  let filetypes = ['.jpg', 'jpeg', '.gif', '.png', '.tif', '.tiff', '.bmp']
-
-}
-
 
 //////////////////////////////////////AUTHENTICATION///////////////////////
 bot.login(process.env.fatBotToken) //shh this is a secret password :)
