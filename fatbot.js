@@ -108,4 +108,4 @@ function sendImageEvent (){ //emits the correctDay event and sets posted to true
   posted = true;
 }
 
-bot.login(fatBotToken) //shh this is a secret password :)
+bot.login(process.env.fatBotToken) //shh this is a secret password :)
