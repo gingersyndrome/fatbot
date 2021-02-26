@@ -23,7 +23,7 @@ const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1
 ///////////////////////////////LISTENERS/////////////////////////////////
 bot.on('ready', () => {
   console.log('Bot is ready.')
-  posted  = false //set bool for if the image has been posted
+  posted  = true //set bool for if the image has been posted
   checkDay() //check the day and begin the recursive loop
 })
 
