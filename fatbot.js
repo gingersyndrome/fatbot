@@ -10,9 +10,12 @@ const randMax = 86400000 //set this, 86400000 miliseconds in 24 hours
 const checkDayTimer = 1800000 //set this, 1800000 miliseconds in 0.5 hours
 
 posted  = false;
-
 fucker = 0;
 gf = 0;
+
+const nDate = new Date().toLocaleString('en-US', {
+  timeZone: 'America/New_York'
+});
 
 ///////////////////////////////////////////////////////////////////
 
@@ -24,7 +27,6 @@ bot.on('ready', () => {
 bot.on('correctDay', (message) => { //event to execute when timer expires on the correct day
   bot.channels.cache.get(genChannelID).send('It is Fat Fuck Friday.', {files: [Path.join(__dirname, 'itshim.jpg')]}) //C:\Users\James\fat-fuck-bot\itshim.jpg
 })
-
 
 bot.on('message', msg => {
   if (/fat fuck/ig.test(msg) || /fat bot/ig.test(msg) || msg.mentions.users.has(bot.user.id))  {
@@ -69,10 +71,10 @@ function checkDay(){
   if (checkDayTimer <= 60000){
     console.log(`Timer set to check the day in ${checkDayTimer/1000} seconds.`)
   }
-  else if (checkDayTimer <= 3600000){
+  else if (checkDayTimer <= 3600000 && !(checkDayTimer <= 60000)){
     console.log(`Timer set to check the day in ${checkDayTimer/1000/60} minutes.`)
   }
-  else if (checkDayTimer <= 86400000) {
+  else if (checkDayTimer <= 86400000 && !(checkDayTimer <= 60000) && !(checkDayTimer <= 3600000)) {
     console.log(`Timer set to check the day in ${checkDayTimer/1000/60/60} hours.`)
   }
   else {
