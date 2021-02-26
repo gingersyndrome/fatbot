@@ -6,9 +6,6 @@ const bot = new Discord.Client()
 const Path = require('path')
 
 /////////////////////////DO-NOT-CHANGE-VARIABLES//////////////////////////
-const currentDayIndex = new Date().getDay() //get the current day's index
-const randMin = 0 //minimum for posting timer, probably no reason to set
-posted  = false //bool for if the image has been posted
 counterOne = 0 //first counter
 counterTwo = 0 //second counter
 
@@ -18,11 +15,13 @@ const targetDayIndex = 5 //set this, to the day the image should be posted on Mo
 const messageToSend = 'It is Fat Fuck Friday.' //set this, message to send when the timer expires
 const imagePath = 'itshim.jpg' //set this, image to post when the timer expires
 const randMax = 86400000 //set this, maximum for posting timer in miliseconds, 86400000 miliseconds in 24 hours, set to 0 to post immediately when it is the correct day 
+const randMin = 0 //minimum for posting timer, probably no reason to set
 const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1800000 miliseconds in 0.5 hours
 
 ///////////////////////////////LISTENERS/////////////////////////////////
 bot.on('ready', () => {
   console.log('Bot is ready.')
+  posted  = false //set bool for if the image has been posted
   checkDay() //check the day and begin the recursive loop
 })
 
@@ -65,6 +64,8 @@ bot.on('message', msg => {
 /////////////////////////////FUNCTIONS////////////////////////////////////
 function checkDay(){
   let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  currentDayIndex = new Date().getDay() //reset current day index
+  
   targetDay = days[targetDayIndex] //index of the day when the bot posts
   currentDay = days[currentDayIndex] //today's index
  
