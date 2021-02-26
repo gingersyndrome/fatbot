@@ -15,7 +15,7 @@ const genChannelID = '651155522833350679' //set this, ID of channel that image w
 const targetDayIndex = 5 //set this, to the day the image should be posted on Monday = 1, Tuesday = 2, ect.
 const messageToSend = 'It is Fat Fuck Friday.' //set this, message to send when the timer expires
 const imagePath = 'itshim.jpg' //set this, image to post when the timer expires, change to array??
-const randMax = 39600000 //set this, maximum for posting timer in miliseconds, 86400000 miliseconds in 24 hours, set to 0 to post immediately when it is the correct day 
+const randMax = 43200000 //set this, maximum for posting timer in miliseconds, 86400000 miliseconds in 24 hours, set to 0 to post immediately when it is the correct day 
 const randMin = 0 //minimum for posting timer, probably no reason to set
 const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1800000 miliseconds in 0.5 hours
 
