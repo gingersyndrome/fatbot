@@ -4,7 +4,7 @@ const Path = require('path')
 const genChannelID = '651155522833350679'
 const testChannelID = '813996243377586197'
 const targetDayIndex = 5 //set this
-const currentDayIndex = new Date().getDay()
+const currentDayIndex = new Date().toLocaleString('en-US', {timeZone: 'America/New_York'})
 const randMin = 0
 const randMax = 86400000 //set this, 86400000 miliseconds in 24 hours
 const checkDayTimer = 1800000 //set this, 1800000 miliseconds in 0.5 hours
@@ -13,9 +13,7 @@ posted  = false;
 fucker = 0;
 gf = 0;
 
-const nDate = new Date().toLocaleString('en-US', {
-  timeZone: 'America/New_York'
-});
+const nDate = new Date().toLocaleString('en-US', {timeZone: 'America/New_York'})
 
 ///////////////////////////////////////////////////////////////////
 
