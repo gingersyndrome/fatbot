@@ -1,15 +1,14 @@
 const Discord = require('discord.js')
 const bot = new Discord.Client()
 const Path = require('path')
-const genChannelID = '651155522833350679'
-const testChannelID = '813996243377586197'
-const targetDayIndex = 5 //set this
-const currentDayIndex = new Date().getDay()
+const genChannelID = '651155522833350679' //ID of channel that image will be posted to
+const testChannelID = '813996243377586197' //not used
+const targetDayIndex = 5 //set this to the day the image should be posted on Monday = 1, Tuesday = 2, ect.
+const currentDayIndex = new Date().getDay() //get the current day's index
 
-currentDayIndex.set
-const randMin = 0
-const randMax = 86400000 //set this, 86400000 miliseconds in 24 hours
-const checkDayTimer = 1800000 //set this, 1800000 miliseconds in 0.5 hours
+const randMin = 0 //minimum for posting timer
+const randMax = 86400000 //set this, maximum for posting timer in miliseconds, 86400000 miliseconds in 24 hours
+const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1800000 miliseconds in 0.5 hours
 
 posted  = false;
 fucker = 0;
@@ -19,34 +18,39 @@ gf = 0;
 
 bot.on('ready', () => {
   console.log('Bot is ready.')
-  checkDay()
+  checkDay() //check the day and begin the recursive loop
 })
 
 bot.on('correctDay', () => { //event to execute when timer expires on the correct day
-  bot.channels.cache.get(genChannelID).send('It is Fat Fuck Friday.', {files: [Path.join(__dirname, 'itshim.jpg')]}) //C:\Users\James\fat-fuck-bot\itshim.jpg
+  bot.channels.cache.get(genChannelID).send('It is Fat Fuck Friday.', {files: [Path.join(__dirname, 'itshim.jpg')]}) //post itshim.jpg from the same directory as the .js file
 })
 
 bot.on('message', msg => {
   messageMutable = msg.toString().replace(/[^a-zA-Z]/g,'').toLowerCase()  //remove all spaces and special characters and convert to lowercase
-  mentionsBot = (msg.mentions.users.has(bot.user.id) || /fatbot/g.test(messageMutable) || /fatfuck/g.test(messageMutable)) && (!msg.author.bot)
-  console.log(messageMutable)
-  console.log(mentionsBot)
+  mentionsBot = (msg.mentions.users.has(bot.user.id) || /fatbot/g.test(messageMutable) || /fatfuck/g.test(messageMutable)) && (!msg.author.bot) //bool that determines if the bot has been mentioned in the last message
   
-  if (mentionsBot)  {
+  console.log(messageMutable) //output the sanitized message
+  console.log(mentionsBot) //outputs if bot was mentioned
+  
+  if (mentionsBot)  { 
+    //if the bot is mentioned add one to mention counter for each mention
     fucker += (msg.toString().match(bot.user.id) || []).length
     fucker += (messageMutable.toString().match(/fatbot/g) || []).length
     fucker += (messageMutable.toString().match(/fatfuck/g) || []).length
   }
 
-  if (mentionsBot && /praise/g.test(messageMutable))  {
+  if (mentionsBot && /praise/g.test(messageMutable))  { 
+    //if the bot is mentioned and the word 'praise' appears in the message output the number of mentions
     msg.reply('Praise counter: ' + fucker)
   }
 
-  if (mentionsBot && /fortune/g.test(messageMutable)) {
+  if (mentionsBot && /fortune/g.test(messageMutable)) { 
+    //this sin't done yet how embarassing
     msg.reply('That is not done yet. How embarassing.')
   }
 
-  if ((/pablosgirlfriend/g.test(messageMutable) ||/callie/g.test(messageMutable)) && /ornithologist/g.test(messageMutable))  {
+  if ((/pablosgirlfriend/g.test(messageMutable) ||/callie/g.test(messageMutable)) && /ornithologist/g.test(messageMutable))  { 
+    //if the words pablosgirlfriend, callie, and ornithologist appear in the same message iterate and output girlfriend counter
     gf++
     msg.reply('Girlfriend counter: ' + gf)
   }
@@ -58,43 +62,45 @@ bot.on('message', msg => {
 function checkDay(){
 
   let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  targetDay = days[targetDayIndex]
-  currentDay = days[currentDayIndex]
+  targetDay = days[targetDayIndex] //index of the day when the bot posts
+  currentDay = days[currentDayIndex] //today's index
  
- if (currentDay != targetDay){
+ if (currentDay != targetDay){ //if it's not the target day output current config and reset posted bool
     posted = false;
     console.log(`Your event will execute on ${targetDay}. It is currently ${currentDay}.`)
  }
  else if (currentDay == targetDay && posted == false){
+   //if it's the target day and the image has not been posted set a random timer to emit the correctDay event
     setTimeout(sendImageEvent, getRandomInt(randMin, randMax))
     console.log(`Timer set to emit ${currentDay} between ${randMin/1000/60} and ${randMax/1000/60} minutes from now.`)
   }
   else{
+    //if the image has already been posted output to the console
     console.log('The image has already been sent today. Counter will restart tomorrow.')
   }
 
   setTimeout(checkDay, checkDayTimer)
-  if (checkDayTimer <= 60000){
+  if (checkDayTimer <= 60000){ //if the day checking timer is in seconds
     console.log(`Timer set to check the day in ${checkDayTimer/1000} seconds.`)
   }
-  else if (checkDayTimer <= 3600000 && !(checkDayTimer <= 60000)){
+  else if (checkDayTimer <= 3600000 && !(checkDayTimer <= 60000)){ //if the day checking timer is in minutes
     console.log(`Timer set to check the day in ${checkDayTimer/1000/60} minutes.`)
   }
-  else if (checkDayTimer <= 86400000 && !(checkDayTimer <= 60000) && !(checkDayTimer <= 3600000)) {
+  else if (checkDayTimer <= 86400000 && !(checkDayTimer <= 60000) && !(checkDayTimer <= 3600000)) { //if the day checking timer is in hours
     console.log(`Timer set to check the day in ${checkDayTimer/1000/60/60} hours.`)
   }
-  else {
+  else { //if the day checking timer is invalid
     console.log(`Interval selected exceeds 24 hours. Please select another interval by modifying the checkDayTimer variable.`)
   }
 }
 
-function getRandomInt(min, max) {
+function getRandomInt(min, max) { //random number generator
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min) //The maximum is exclusive and the minimum is inclusive
 }
 
-function sendImageEvent (){
+function sendImageEvent (){ //emits the correctDay event and sets posted to true
   if (posted == false){
     bot.emit('correctDay')
     console.log('Image sent!')
@@ -102,4 +108,4 @@ function sendImageEvent (){
   posted = true;
 }
 
-bot.login('ODEzMTQ5NjgxNTIxMzkzNzQ1.YDLGpw.yePgM4N2_c0KWqjBHOugcQ5i5HY')
+bot.login(fatBotToken) //shh this is a secret password :)
