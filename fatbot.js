@@ -27,20 +27,26 @@ bot.on('correctDay', (message) => { //event to execute when timer expires on the
 })
 
 bot.on('message', msg => {
-  if (/fat fuck/ig.test(msg) || /fat bot/ig.test(msg) || msg.mentions.users.has(bot.user.id))  {
-    fucker += (msg.toString().match(/fat fuck/ig) || []).length
-    fucker += (msg.toString().match(/fat bot/ig) || []).length
+  msg = msg.replace(/[^a-zA-Z ]/g,"").replace(/\s/g, "").toLowerCase()  //remove all spaces and special characters and convert to lowercase
+  mentionsBot = (msg.mentions.users.has(bot.user.id) || /fatbot/g.test(msg) || /fatfuck/g.test(msg)) && (!msg.author.bot)
+  
+  if (mentionsBot)  {
     fucker += (msg.toString().match(bot.user.id) || []).length
+    fucker += (msg.toString().match(/fatbot/g) || []).length
+    fucker += (msg.toString().match(/fatfuck/g) || []).length
   }
-  if (/praise fat fuck/ig.test(msg) || /praise fat bot/ig.test(msg) || (/praise/ig.test(msg) && msg.mentions.users.has(bot.user.id)))  {
+
+  if (mentionsBot && /praise/g.test(msg))  {
     msg.reply('Praise counter: ' + fucker)
   }
-  if ((/pablo's girlfriend/ig.test(msg) || /callie/ig.test(msg)) && /ornithologist/ig.test(msg))  {
+
+  if (mentionsBot && /fortune/g.test(msg)) {
+    msg.reply('That is not done yet. How embarassing.')
+  }
+
+  if ((/pablosgirlfriend/g.test(msg) ||/callie/g.test(msg)) && /ornithologist/g.test(msg))  {
     gf++
     msg.reply('Girlfriend counter: ' + gf)
-  }
-  if ((msg.mentions.users.has(bot.user.id) || /fat bot/ig.test(msg)) && /fortune/ig.test(msg) && !msg.author.bot) {
-  msg.reply('That is not done yet. How embarassing.')
   }
 })
 
