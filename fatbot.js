@@ -10,10 +10,11 @@ counterOne = 0 //first counter
 counterTwo = 0 //second counter
 
 //////////////////////CONFIG-VARIABLES-MAYBE-CHANGE//////////////////////
+//add one for botname and message for both counters
 const genChannelID = '651155522833350679' //set this, ID of channel that image will be posted to
 const targetDayIndex = 5 //set this, to the day the image should be posted on Monday = 1, Tuesday = 2, ect.
 const messageToSend = 'It is Fat Fuck Friday.' //set this, message to send when the timer expires
-const imagePath = 'itshim.jpg' //set this, image to post when the timer expires
+const imagePath = 'itshim.jpg' //set this, image to post when the timer expires, change to array??
 const randMax = 86400000 //set this, maximum for posting timer in miliseconds, 86400000 miliseconds in 24 hours, set to 0 to post immediately when it is the correct day 
 const randMin = 0 //minimum for posting timer, probably no reason to set
 const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1800000 miliseconds in 0.5 hours
@@ -34,8 +35,8 @@ bot.on('message', msg => {
   messageMutable = msg.toString().replace(/[^a-zA-Z]/g,'').toLowerCase()  //remove all spaces and special characters and convert to lowercase
   mentionsBot = (msg.mentions.users.has(bot.user.id) || /fatbot/g.test(messageMutable) || /fatfuck/g.test(messageMutable)) && (!msg.author.bot) //bool that determines if the bot has been mentioned in the last message
   
-  console.log(messageMutable) //output the sanitized message
-  console.log(mentionsBot) //outputs if bot was mentioned
+  console.log(`SANITIZED MESSAGE: ${messageMutable}`) //output the sanitized message
+  console.log(mentionsBot ? 'Bot was mentioned.' : 'Bot was not mentioned.') //outputs if bot was mentioned
   
   if (mentionsBot)  { 
     //if the bot is mentioned add one to mention counter for each mention
@@ -56,7 +57,7 @@ bot.on('message', msg => {
 
   if ((/pablosgirlfriend/g.test(messageMutable) ||/callie/g.test(messageMutable)) && /ornithologist/g.test(messageMutable))  { 
     //if the words pablosgirlfriend, callie, and ornithologist appear in the same message iterate and output girlfriend counter
-    process.env.counterTwo++
+    counterTwo++
     msg.reply('Girlfriend counter: ' + counterTwo)
   }
 })
