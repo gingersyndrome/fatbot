@@ -1,30 +1,34 @@
+////////////////////////////////API-STUFF/////////////////////////////////
+//const aws = require('aws-sdk'); //put this in if you need aws features
+//const testChannelID = '813996243377586197' //not used
 const Discord = require('discord.js')
-const aws = require('aws-sdk');
 const bot = new Discord.Client()
 const Path = require('path')
-const genChannelID = '651155522833350679' //ID of channel that image will be posted to
-const testChannelID = '813996243377586197' //not used
-const targetDayIndex = 5 //set this to the day the image should be posted on Monday = 1, Tuesday = 2, ect.
-const currentDayIndex = new Date().getDay() //get the current day's index
 
-const randMin = 0 //minimum for posting timer
-const randMax = 86400000 //set this, maximum for posting timer in miliseconds, 86400000 miliseconds in 24 hours
+/////////////////////////DO-NOT-CHANGE-VARIABLES//////////////////////////
+const currentDayIndex = new Date().getDay() //get the current day's index
+const randMin = 0 //minimum for posting timer, probably no reason to set
+posted  = false //bool for if the image has been posted
+counterOne = 0 //first counter
+counterTwo = 0 //second counter
+
+//////////////////////CONFIG-VARIABLES-MAYBE-CHANGE//////////////////////
+const genChannelID = '651155522833350679' //set this, ID of channel that image will be posted to
+const targetDayIndex = 5 //set this, to the day the image should be posted on Monday = 1, Tuesday = 2, ect.
+const messageToSend = 'It is Fat Fuck Friday.' //set this, message to send when the timer expires
+const imagePath = 'itshim.jpg' //set this, image to post when the timer expires
+const randMax = 86400000 //set this, maximum for posting timer in miliseconds, 86400000 miliseconds in 24 hours, set to 0 to post immediately when it is the correct day 
 const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1800000 miliseconds in 0.5 hours
 
-posted  = false
-
-counterOne = 0
-counterTwo = 0
-
-///////////////////////////////////////////////////////////////////
-
+///////////////////////////////LISTENERS/////////////////////////////////
 bot.on('ready', () => {
   console.log('Bot is ready.')
   checkDay() //check the day and begin the recursive loop
 })
 
 bot.on('correctDay', () => { //event to execute when timer expires on the correct day
-  bot.channels.cache.get(genChannelID).send('It is Fat Fuck Friday.', {files: [Path.join(__dirname, 'itshim.jpg')]}) //post itshim.jpg from the same directory as the .js file
+  bot.channels.cache.get(genChannelID).send(messageToSend, {files: [Path.join(__dirname, imagePath)]}) //post image from the same directory as the .js file
+  checkDay();
 })
 
 bot.on('message', msg => {
@@ -58,17 +62,17 @@ bot.on('message', msg => {
   }
 })
 
-///////////////////////////////////////////////////////////////////
-
+/////////////////////////////FUNCTIONS////////////////////////////////////
 function checkDay(){
-
   let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   targetDay = days[targetDayIndex] //index of the day when the bot posts
   currentDay = days[currentDayIndex] //today's index
  
  if (currentDay != targetDay){ //if it's not the target day output current config and reset posted bool
     posted = false;
+    setTimeout(checkDay, checkDayTimer)
     console.log(`Your event will execute on ${targetDay}. It is currently ${currentDay}.`)
+    outputInterval();
  }
  else if (currentDay == targetDay && posted == false){
    //if it's the target day and the image has not been posted set a random timer to emit the correctDay event
@@ -79,8 +83,9 @@ function checkDay(){
     //if the image has already been posted output to the console
     console.log('The image has already been sent today. Counter will restart tomorrow.')
   }
+}
 
-  setTimeout(checkDay, checkDayTimer)
+function outputInterval(){
   if (checkDayTimer <= 60000){ //if the day checking timer is in seconds
     console.log(`Timer set to check the day in ${checkDayTimer/1000} seconds.`)
   }
@@ -95,12 +100,6 @@ function checkDay(){
   }
 }
 
-function getRandomInt(min, max) { //random number generator
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min) //The maximum is exclusive and the minimum is inclusive
-}
-
 function sendImageEvent (){ //emits the correctDay event and sets posted to true
   if (posted == false){
     bot.emit('correctDay')
@@ -109,4 +108,11 @@ function sendImageEvent (){ //emits the correctDay event and sets posted to true
   posted = true;
 }
 
+function getRandomInt(min, max) { //random number generator, the maximum is exclusive and the minimum is inclusive
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min)
+}
+
+//////////////////////////////////////AUTHENTICATION///////////////////////
 bot.login(process.env.fatBotToken) //shh this is a secret password :)
