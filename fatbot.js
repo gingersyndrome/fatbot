@@ -27,8 +27,8 @@ bot.on('correctDay', (message) => { //event to execute when timer expires on the
 })
 
 bot.on('message', msg => {
-  msg = msg.toString().replace(/[^a-zA-Z ]/g,"").replace(/\s/g, "").toLowerCase()  //remove all spaces and special characters and convert to lowercase
   mentionsBot = (msg.mentions.users.has(bot.user.id) || /fatbot/g.test(msg) || /fatfuck/g.test(msg)) && (!msg.author.bot)
+  msg = msg.toString().replace(/[^a-zA-Z ]/g,"").replace(/\s/g, "").toLowerCase()  //remove all spaces and special characters and convert to lowercase
   console.log(msg)
   if (mentionsBot)  {
     fucker += (msg.toString().match(bot.user.id) || []).length
