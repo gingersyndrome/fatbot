@@ -1,4 +1,5 @@
 const Discord = require('discord.js')
+const aws = require('aws-sdk');
 const bot = new Discord.Client()
 const Path = require('path')
 const genChannelID = '651155522833350679' //ID of channel that image will be posted to
@@ -11,6 +12,14 @@ const randMax = 86400000 //set this, maximum for posting timer in miliseconds, 8
 const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1800000 miliseconds in 0.5 hours
 
 posted  = false;
+
+let countOne = new aws.S3({
+  accessKeyId: process.env.counterOne,
+});
+
+let countTwo = new aws.S3({
+  accessKeyId: process.env.counterTwo,
+});
 
 ///////////////////////////////////////////////////////////////////
 
@@ -32,14 +41,14 @@ bot.on('message', msg => {
   
   if (mentionsBot)  { 
     //if the bot is mentioned add one to mention counter for each mention
-    process.env.counterOne += (msg.toString().match(bot.user.id) || []).length
-    process.env.counterOne += (messageMutable.toString().match(/fatbot/g) || []).length
-    process.env.counterOne += (messageMutable.toString().match(/fatfuck/g) || []).length
+    countOne += (msg.toString().match(bot.user.id) || []).length
+    countOne += (messageMutable.toString().match(/fatbot/g) || []).length
+    countOne += (messageMutable.toString().match(/fatfuck/g) || []).length
   }
 
   if (mentionsBot && /praise/g.test(messageMutable))  { 
     //if the bot is mentioned and the word 'praise' appears in the message output the number of mentions
-    msg.reply('Praise counter: ' + process.env.counterOne)
+    msg.reply('Praise counter: ' + countOne)
   }
 
   if (mentionsBot && /fortune/g.test(messageMutable)) { 
@@ -50,9 +59,13 @@ bot.on('message', msg => {
   if ((/pablosgirlfriend/g.test(messageMutable) ||/callie/g.test(messageMutable)) && /ornithologist/g.test(messageMutable))  { 
     //if the words pablosgirlfriend, callie, and ornithologist appear in the same message iterate and output girlfriend counter
     process.env.counterTwo++
-    msg.reply('Girlfriend counter: ' + process.env.counterTwo)
+    msg.reply('Girlfriend counter: ' + countTwo)
   }
 })
+
+
+
+
 
 
 ///////////////////////////////////////////////////////////////////
