@@ -4,7 +4,7 @@ const Path = require('path')
 const genChannelID = '651155522833350679'
 const testChannelID = '813996243377586197'
 const targetDayIndex = 5 //set this
-const currentDayIndex = new Date().getDay().toLocaleString('en-US', {timeZone: 'America/New_York'})
+const currentDayIndex = new Date().getDay()
 
 currentDayIndex.set
 const randMin = 0
