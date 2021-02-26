@@ -11,15 +11,10 @@ const randMin = 0 //minimum for posting timer
 const randMax = 86400000 //set this, maximum for posting timer in miliseconds, 86400000 miliseconds in 24 hours
 const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1800000 miliseconds in 0.5 hours
 
-posted  = false;
+posted  = false
 
-let countOne = new aws.S3({
-  accessKeyId: process.env.counterOne,
-});
-
-let countTwo = new aws.S3({
-  accessKeyId: process.env.counterTwo,
-});
+counterOne = 0
+counterTwo = 0
 
 ///////////////////////////////////////////////////////////////////
 
@@ -41,14 +36,14 @@ bot.on('message', msg => {
   
   if (mentionsBot)  { 
     //if the bot is mentioned add one to mention counter for each mention
-    countOne += (msg.toString().match(bot.user.id) || []).length
-    countOne += (messageMutable.toString().match(/fatbot/g) || []).length
-    countOne += (messageMutable.toString().match(/fatfuck/g) || []).length
+    counterOne += (msg.toString().match(bot.user.id) || []).length
+    counterOne += (messageMutable.toString().match(/fatbot/g) || []).length
+    counterOne += (messageMutable.toString().match(/fatfuck/g) || []).length
   }
 
   if (mentionsBot && /praise/g.test(messageMutable))  { 
     //if the bot is mentioned and the word 'praise' appears in the message output the number of mentions
-    msg.reply('Praise counter: ' + countOne)
+    msg.reply('Praise counter: ' + counterOne)
   }
 
   if (mentionsBot && /fortune/g.test(messageMutable)) { 
@@ -59,14 +54,9 @@ bot.on('message', msg => {
   if ((/pablosgirlfriend/g.test(messageMutable) ||/callie/g.test(messageMutable)) && /ornithologist/g.test(messageMutable))  { 
     //if the words pablosgirlfriend, callie, and ornithologist appear in the same message iterate and output girlfriend counter
     process.env.counterTwo++
-    msg.reply('Girlfriend counter: ' + countTwo)
+    msg.reply('Girlfriend counter: ' + counterTwo)
   }
 })
-
-
-
-
-
 
 ///////////////////////////////////////////////////////////////////
 
