@@ -11,8 +11,6 @@ const randMax = 86400000 //set this, maximum for posting timer in miliseconds, 8
 const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1800000 miliseconds in 0.5 hours
 
 posted  = false;
-fucker = 0;
-gf = 0;
 
 ///////////////////////////////////////////////////////////////////
 
@@ -34,14 +32,14 @@ bot.on('message', msg => {
   
   if (mentionsBot)  { 
     //if the bot is mentioned add one to mention counter for each mention
-    fucker += (msg.toString().match(bot.user.id) || []).length
-    fucker += (messageMutable.toString().match(/fatbot/g) || []).length
-    fucker += (messageMutable.toString().match(/fatfuck/g) || []).length
+    process.env.counterOne += (msg.toString().match(bot.user.id) || []).length
+    process.env.counterOne += (messageMutable.toString().match(/fatbot/g) || []).length
+    process.env.counterOne += (messageMutable.toString().match(/fatfuck/g) || []).length
   }
 
   if (mentionsBot && /praise/g.test(messageMutable))  { 
     //if the bot is mentioned and the word 'praise' appears in the message output the number of mentions
-    msg.reply('Praise counter: ' + fucker)
+    msg.reply('Praise counter: ' + process.env.counterOne)
   }
 
   if (mentionsBot && /fortune/g.test(messageMutable)) { 
@@ -51,8 +49,8 @@ bot.on('message', msg => {
 
   if ((/pablosgirlfriend/g.test(messageMutable) ||/callie/g.test(messageMutable)) && /ornithologist/g.test(messageMutable))  { 
     //if the words pablosgirlfriend, callie, and ornithologist appear in the same message iterate and output girlfriend counter
-    gf++
-    msg.reply('Girlfriend counter: ' + gf)
+    process.env.counterTwo++
+    msg.reply('Girlfriend counter: ' + process.env.counterTwo)
   }
 })
 
