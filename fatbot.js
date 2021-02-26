@@ -27,10 +27,12 @@ bot.on('correctDay', (message) => { //event to execute when timer expires on the
 
 
 bot.on('message', msg => {
-  if (/fat fuck/ig.test(msg))  {
+  if (/fat fuck/ig.test(msg) || /fat bot/ig.test(msg) || msg.mentions.users.has(bot.user.id))  {
     fucker += (msg.toString().match(/fat fuck/ig) || []).length
+    fucker += (msg.toString().match(/fat bot/ig) || []).length
+    fucker += (msg.toString().match(bot.user.id) || []).length
   }
-  if (/praise fat fuck/ig.test(msg))  {
+  if (/praise fat fuck/ig.test(msg) || /praise fat bot/ig.test(msg) || (/praise/ig.test(msg) && msg.mentions.users.has(bot.user.id)))  {
     msg.reply('Praise counter: ' + fucker)
   }
   if ((/pablo's girlfriend/ig.test(msg) || /callie/ig.test(msg)) && /ornithologist/ig.test(msg))  {
