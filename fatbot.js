@@ -22,7 +22,7 @@ bot.on('ready', () => {
   checkDay()
 })
 
-bot.on('correctDay', (message) => { //event to execute when timer expires on the correct day
+bot.on('correctDay', () => { //event to execute when timer expires on the correct day
   bot.channels.cache.get(genChannelID).send('It is Fat Fuck Friday.', {files: [Path.join(__dirname, 'itshim.jpg')]}) //C:\Users\James\fat-fuck-bot\itshim.jpg
 })
 
@@ -33,19 +33,19 @@ bot.on('message', msg => {
   
   if (mentionsBot)  {
     fucker += (msg.toString().match(bot.user.id) || []).length
-    fucker += (msg.toString().match(/fatbot/g) || []).length
-    fucker += (msg.toString().match(/fatfuck/g) || []).length
+    fucker += (messageMutable.toString().match(/fatbot/g) || []).length
+    fucker += (messageMutable.toString().match(/fatfuck/g) || []).length
   }
 
-  if (mentionsBot && /praise/g.test(msg))  {
+  if (mentionsBot && /praise/g.test(messageMutable))  {
     msg.reply('Praise counter: ' + fucker)
   }
 
-  if (mentionsBot && /fortune/g.test(msg)) {
+  if (mentionsBot && /fortune/g.test(messageMutable)) {
     msg.reply('That is not done yet. How embarassing.')
   }
 
-  if ((/pablosgirlfriend/g.test(msg) ||/callie/g.test(msg)) && /ornithologist/g.test(msg))  {
+  if ((/pablosgirlfriend/g.test(messageMutable) ||/callie/g.test(messageMutable)) && /ornithologist/g.test(messageMutable))  {
     gf++
     msg.reply('Girlfriend counter: ' + gf)
   }
