@@ -24,13 +24,12 @@ const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1
 ///////////////////////////////LISTENERS/////////////////////////////////
 bot.on('ready', () => {
   console.log('Bot is ready.')
-  console.log(imageFileName[3])
   posted  = true //set bool for if the image has been posted
   checkDay() //check the day and begin the recursive loop
 })
 
 bot.on('correctDay', () => { //event to execute when timer expires on the correct day
-  randIndex = getRandomInt(1, 10) //randomly choose an image to post
+  randIndex = getRandomInt(0, imageFileName.length-1) //randomly choose an image to post
   bot.channels.cache.get(genChannelID).send(messageToSend, {files: [Path.join(__dirname, imageFileName[randIndex])]}) //post image from the same directory as the .js file
   checkDay();
 })
