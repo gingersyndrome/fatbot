@@ -59,7 +59,7 @@ bot.on('message', msg => {
     msg.reply('That is not done yet. How embarassing.')
   }
 
-  if (mentionsBot && /patch notes/g.test(messageMutable)) { 
+  if (mentionsBot && /patchnotes/g.test(messageMutable)) { 
     //this sin't done yet how embarassing
     msg.reply('I desire violence.')
   }
