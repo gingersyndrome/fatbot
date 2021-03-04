@@ -61,7 +61,7 @@ bot.on('message', msg => {
 
   if (mentionsBot && /patchnotes/g.test(messageMutable)) { 
     //this sin't done yet how embarassing
-    msg.reply('I desire violence.')
+    msg.reply('Added 2 new fat fucks on 03/04/2021.')
   }
 
   if ((/pablosgirlfriend/g.test(messageMutable) ||/callie/g.test(messageMutable)) && /ornithologist/g.test(messageMutable))  { 
