@@ -23,9 +23,9 @@ const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1
 ///////////////////////////////LISTENERS/////////////////////////////////
 bot.on('ready', () => {
   console.log('Bot is ready.')
-  console.log(imageFileName.length-1)
+  console.log(imageFileName.length)
   console.log(imageFileName[1])
-  posted  = true //set bool for if the image has been posted
+  posted  = false //set bool for if the image has been posted
   checkDay() //check the day and begin the recursive loop
 })
 
@@ -57,6 +57,11 @@ bot.on('message', msg => {
   if (mentionsBot && /fortune/g.test(messageMutable)) { 
     //this sin't done yet how embarassing
     msg.reply('That is not done yet. How embarassing.')
+  }
+
+  if (mentionsBot && /patch notes/g.test(messageMutable)) { 
+    //this sin't done yet how embarassing
+    msg.reply('I desire violence.')
   }
 
   if ((/pablosgirlfriend/g.test(messageMutable) ||/callie/g.test(messageMutable)) && /ornithologist/g.test(messageMutable))  { 
