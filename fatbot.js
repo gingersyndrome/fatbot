@@ -4,34 +4,33 @@
 const Discord = require('discord.js')
 const bot = new Discord.Client()
 const Path = require('path')
-var fs = require('fs');
+const fs = require('fs');
 
 /////////////////////////DO-NOT-CHANGE-VARIABLES//////////////////////////
 counterOne = 0 //first counter
 counterTwo = 0 //second counter 
-var imageFileName = fs.readdirSync(Path.join(__dirname, 'imagesToPost')) //construct and array of all filenames in imagesToPost
+const imageFileName = fs.readdirSync(Path.join(__dirname, 'imagesToPost')) //construct and array of all filenames in imagesToPost
 
 //////////////////////CONFIG-VARIABLES///////////////////////////////////
 //add one for botname and message for both counters
 const genChannelID = '651155522833350679' //set this, ID of channel that image will be posted to
 const targetDayIndex = 5 //set this, to the day the image should be posted on Monday = 1, Tuesday = 2, ect.
 const messageToSend = 'It is Fat Fuck Friday.' //set this, message to send when the timer expires
-const randMax = 3600000 //set this, maximum for posting timer in miliseconds, 86400000 miliseconds in 24 hours, set to 0 to post immediately when it is the correct day 
+const randMax = 10000 //set this, maximum for posting timer in miliseconds, 86400000 miliseconds in 24 hours, set to 0 to post immediately when it is the correct day 
 const randMin = 0 //minimum for posting timer, probably no reason to set
 const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1800000 miliseconds in 0.5 hours
 
 ///////////////////////////////LISTENERS/////////////////////////////////
 bot.on('ready', () => {
   console.log('Bot is ready.')
-  console.log(imageFileName.length)
-  console.log(imageFileName[1])
+  console.log(`${imageFileName.length} images in folder.`)
   posted  = false //set bool for if the image has been posted
   checkDay() //check the day and begin the recursive loop
 })
 
 bot.on('correctDay', () => { //event to execute when timer expires on the correct day
   randIndex = getRandomInt(0, imageFileName.length-1) //randomly choose an image to post
-  bot.channels.cache.get(genChannelID).send(messageToSend, {files: [Path.join(__dirname, imageFileName[randIndex])]}) //post image from the same directory as the .js file
+  bot.channels.cache.get(genChannelID).send(messageToSend, {files: [Path.join(__dirname, `imagesToPost/${imageFileName[randIndex]}`)]}) //post image from the same directory as the .js file
   checkDay();
 })
 
@@ -61,10 +60,10 @@ bot.on('message', msg => {
 
   if (mentionsBot && /patchnotes/g.test(messageMutable)) { 
     //this sin't done yet how embarassing
-    msg.reply('Added 2 new fat fucks on 03/04/2021.')
+    msg.reply('Fixed uh oh 03/05/2021.')
   }
 
-  if ((/pablosgirlfriend/g.test(messageMutable) ||/callie/g.test(messageMutable)) && /ornithologist/g.test(messageMutable))  { 
+  if ((/pablosgirlfriend/g.test(messageMutable) || /callie/g.test(messageMutable)) && /ornithologist/g.test(messageMutable))  { 
     //if the words pablosgirlfriend, callie, and ornithologist appear in the same message iterate and output girlfriend counter
     counterTwo++
     msg.reply('Girlfriend counter: ' + counterTwo)
