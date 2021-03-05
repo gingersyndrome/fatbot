@@ -4,7 +4,7 @@
 const Discord = require('discord.js')
 const bot = new Discord.Client()
 const Path = require('path')
-var fs = require('fs');   
+var fs = require('fs');
 
 /////////////////////////DO-NOT-CHANGE-VARIABLES//////////////////////////
 counterOne = 0 //first counter
