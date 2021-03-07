@@ -16,7 +16,7 @@ const imageFileName = fs.readdirSync(Path.join(__dirname, 'imagesToPost')) //con
 const genChannelID = '651155522833350679' //set this, ID of channel that image will be posted to
 const targetDayIndex = 5 //set this, to the day the image should be posted on Monday = 1, Tuesday = 2, ect.
 const messageToSend = 'It is Fat Fuck Friday.' //set this, message to send when the timer expires
-const randMax = 10000 //set this, maximum for posting timer in miliseconds, 86400000 miliseconds in 24 hours, set to 0 to post immediately when it is the correct day 
+const randMax = 43200000 //set this, maximum for posting timer in miliseconds, 86400000 miliseconds in 24 hours, set to 0 to post immediately when it is the correct day 
 const randMin = 0 //minimum for posting timer, probably no reason to set
 const checkDayTimer = 1800000 //set this, time for check timer in miliseconds, 1800000 miliseconds in 0.5 hours
 
@@ -56,6 +56,11 @@ bot.on('message', msg => {
   if (mentionsBot && /fortune/g.test(messageMutable)) { 
     //this sin't done yet how embarassing
     msg.reply('That is not done yet. How embarassing.')
+  }
+
+  if (/discorddiscordkingofbotsshowmeananimalthatweighsalot/g.test(messageMutable)) { 
+    randIndex = getRandomInt(0, imageFileName.length-1) //randomly choose an image to post
+    bot.channels.cache.get(genChannelID).send(messageToSend, {files: [Path.join(__dirname, `imagesToPost/${imageFileName[randIndex]}`)]}) //post image from the same directory as the .js file
   }
 
   if (mentionsBot && /patchnotes/g.test(messageMutable)) { 
