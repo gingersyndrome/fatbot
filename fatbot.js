@@ -58,10 +58,10 @@ bot.on('message', msg => {
     msg.reply('That is not done yet. How embarassing.')
   }
 
-  if (/discorddiscordkingofbotsshowmeananimalthatweighsalot/g.test(messageMutable)) { 
+  /*if (/discorddiscordkingofbotsshowmeananimalthatweighsalot/g.test(messageMutable)) { 
     randIndex = getRandomInt(0, imageFileName.length-1) //randomly choose an image to post
     bot.channels.cache.get(genChannelID).send(messageToSend, {files: [Path.join(__dirname, `imagesToPost/${imageFileName[randIndex]}`)]}) //post image from the same directory as the .js file
-  }
+  }*/
 
   if (mentionsBot && /patchnotes/g.test(messageMutable)) { 
     //this sin't done yet how embarassing
