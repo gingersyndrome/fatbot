@@ -6,7 +6,7 @@ const bot = new Discord.Client()
 const Path = require('path')
 const fs = require('fs');
 
-/////////////////////////DO-NOT-CHANGE-VARIABLES//////////////////////////
+/////////////////////////DO-NOT-CHANGE-VARIABLES////////////////////////// 
 counterOne = 0 //first counter
 counterTwo = 0 //second counter 
 const imageFileName = fs.readdirSync(Path.join(__dirname, 'imagesToPost')) //construct and array of all filenames in imagesToPost
