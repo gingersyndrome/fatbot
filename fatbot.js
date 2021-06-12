@@ -80,11 +80,11 @@ function checkDay(){
   let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   currentDayIndex = new Date().getDay() //reset current day index
   
-  targetDay = days[targetDayIndex] //index of the day when the bot posts
-  currentDay = days[currentDayIndex] //today's index
+  let targetDay = days[targetDayIndex] //index of the day when the bot posts
+  let currentDay = days[currentDayIndex] //today's index
  
  if (currentDay != targetDay){ //if it's not the target day output current config and reset posted bool
-    posted = false;
+    let posted = false;
     setTimeout(checkDay, checkDayTimer)
     console.log(`Your event will execute on ${targetDay}. It is currently ${currentDay}.`)
     outputInterval();
